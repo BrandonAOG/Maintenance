@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Always On Generators - Maintenance Report</title>
+<style>
+  @media print {
+    .no-print { display: none; }
+    body { font-size: 11px; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #222;
+    background: #fff;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .header {
+    text-align: center;
+    background: #1a3a5c;
+    color: #fff;
+    padding: 18px;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 0;
+  }
+  .header h1 { font-size: 22px; letter-spacing: 1px; }
+  .header p { font-size: 12px; opacity: 0.85; margin-top: 4px; }
+  .section {
+    border: 1px solid #ccc;
+    border-top: none;
+    padding: 14px 18px;
+    margin-bottom: 0;
+  }
+  .section:last-of-type { border-radius: 0 0 8px 8px; }
+  .section-title {
+    background: #e8eef4;
+    margin: -14px -18px 12px -18px;
+    padding: 8px 18px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #1a3a5c;
+    border-bottom: 1px solid #ccc;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
+    align-items: center;
+  }
+  .field {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+    min-width: 200px;
+  }
+  .field label {
+    font-weight: bold;
+    white-space: nowrap;
+    font-size: 12px;
+  }
+  .field input[type="text"],
+  .field input[type="date"],
+  .field input[type="number"] {
+    flex: 1;
+    border: none;
+    border-bottom: 1.5px solid #999;
+    padding: 4px 6px;
+    font-size: 13px;
+    background: #fafbfc;
+    outline: none;
+    min-width: 80px;
+  }
+  .field input:focus {
+    border-bottom-color: #1a3a5c;
+    background: #eef3f8;
+  }
+  .field select {
+    flex: 1;
+    border: 1.5px solid #999;
+    border-radius: 4px;
+    padding: 4px 6px;
+    font-size: 13px;
+    background: #fafbfc;
+    outline: none;
+    min-width: 80px;
+  }
+  .radio-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .radio-group label {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 12px;
+  }
+  .checkbox-group {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .checkbox-group label {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 12px;
+  }
+  .full-width {
+    min-width: 100%;
+  }
+  textarea {
+    width: 100%;
+    border: 1.5px solid #999;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    background: #fafbfc;
+    resize: vertical;
+    min-height: 50px;
+    outline: none;
+  }
+  textarea:focus {
+    border-color: #1a3a5c;
+    background: #eef3f8;
+  }
+  .yn {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .yn label { font-weight: normal; font-size: 12px; }
+  .btn-container {
+    text-align: center;
+    margin: 20px 0;
+  }
+  .btn-container button {
+    background: #1a3a5c;
+    color: #fff;
+    border: none;
+    padding: 12px 40px;
+    font-size: 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 0 8px;
+  }
+  .btn-container button:hover { background: #2a5a8c; }
+  .signature-section {
+    margin-top: 10px;
+    display: flex;
+    gap: 30px;
+  }
+  .sig-box {
+    flex: 1;
+    border-bottom: 1.5px solid #333;
+    padding-top: 40px;
+    text-align: center;
+    font-size: 11px;
+    color: #666;
+  }
+</style>
+</head>
+<body>
+
+<style>
+  .header {
+    background-color: #001f3f; /* navy blue */
+    padding: 20px;
+    text-align: center;
+  }
+</style>
+<style>
+  @media print {
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+</style>
+<style>
+  .header {
+    background-color: #001f3f; /* navy blue */
+    padding: 20px;
+    text-align: center;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .header p, 
+  .header h1 {
+    color: white; /* readable on navy */
+  }
+</style>
+
+<div class="header">
+  <img style="display:block; margin:auto; background-color:hsl(210, 100%, 12%);" 
+       src="https://alwaysongenerators.com/wp-content/uploads/AOG-Logo_Retina-1-300x229.png">
+  <h1></h1>
+  <p>Generator Maintenance Service Report</p>
+</div></div><!-- CUSTOMER & JOB INFO -->
+<div class="section">
+  <div class="section-title">Customer & Job Information</div>
+  <div class="row">
+    <div class="field"><label>Name:</label><input type="text" id="name"></div>
+    <div class="field"><label>Number:</label><input type="text" id="number"></div>
+  </div>
+  <div class="row">
+    <div class="field full-width"><label>Address:</label><input type="text" id="address"></div>
+  </div>
+  <div class="row">
+    <div class="field"><label>Tech:</label><input type="text" id="tech"></div>
+    <div class="field"><label>Date:</label><input type="date" id="date"></div>
+  </div>
+  <div class="row">
+    <div class="field"><label>Model:</label><input type="text" id="model"></div>
+    <div class="field"><label>Model #:</label><input type="text" id="modelnum"></div>
+  </div>
+  <div class="row">
+    <div class="field"><label>Serial #:</label><input type="text" id="serial"></div>
+    <div class="field"><label>Hours:</label><input type="text" id="hours"></div>
+  </div>
+</div>
+
+<!-- BATTERY -->
+<div class="section">
+  <div class="section-title">Battery</div>
+  <div class="row">
+    <div class="field full-width">
+      <label>Visual Appearance:</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox"> Corrosion</label>
+        <label><input type="checkbox"> Broken Cables</label>
+        <label><input type="checkbox"> Good</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label>Condition:</label>
+      <div class="radio-group">
+        <label><input type="radio" name="battcond" value="good"> Good</label>
+        <label><input type="radio" name="battcond" value="avg"> Average</label>
+        <label><input type="radio" name="battcond" value="poor"> Poor</label>
+        <label><input type="radio" name="battcond" value="replace"> Needs Replaced</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label>Battery Replaced:</label>
+      <div class="yn">
+        <label><input type="radio" name="battreplaced" value="Y"> Y</label>
+        <label><input type="radio" name="battreplaced" value="N"> N</label>
+      </div>
+    </div>
+    <div class="field"><label>Voltage Under Load:</label><input type="text"></div>
+    <div class="field"><label>CCA:</label><input type="text"></div>
+  </div>
+  <div class="row">
+    <div class="field"><label>Battery Date:</label><input type="text" placeholder="MM/YY"></div>
+    <div class="field"><label>SOH:</label><input type="text"></div>
+    <div class="field"><label>Battery Brand:</label><input type="text"></div>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label>Water Levels:</label>
+      <div class="radio-group">
+        <label><input type="radio" name="water" value="low"> Low</label>
+        <label><input type="radio" name="water" value="full"> Full</label>
+        <label><input type="radio" name="water" value="added"> Added</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GENERATOR -->
+<div class="section">
+  <div class="section-title">Generator</div>
+  <div class="row">
+    <div class="field"><label>Voltage:</label><input type="text"></div>
+    <div class="field">
+      <label>Pre-work Startup & Run:</label>
+      <div class="yn">
+        <label><input type="radio" name="startup" value="normal"> Normal</label>
+        <label><input type="radio" name="startup" value="notnormal"> Not Normal</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label>Case Check:</label>
+      <div class="yn">
+        <label><input type="radio" name="casecheck" value="clean"> Clean</label>
+        <label><input type="radio" name="casecheck" value="debris"> Debris</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>Coolant Level:</label>
+      <div class="radio-group">
+        <label><input type="radio" name="coolant" value="full"> Full</label>
+        <label><input type="radio" name="coolant" value="3/4"> 3/4</label>
+        <label><input type="radio" name="coolant" value="1/2"> 1/2</label>
+        <label><input type="radio" name="coolant" value="empty"> Empty</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field"><label>Coolant Added:</label><input type="text"></div>
+  </div>
+  <div class="row">
+    <div class="field full-width">
+      <label>Wire Check:</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox"> Loose Connections</label>
+        <label><input type="checkbox"> Broken</label>
+        <label><input type="checkbox"> Damaged Wires</label>
+        <label><input type="checkbox"> Good</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field full-width">
+      <label>Interior Check:</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox"> Belts</label>
+        <label><input type="checkbox"> Pulleys</label>
+        <label><input type="checkbox"> Hoses</label>
+        <label><input type="checkbox"> Harness</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label>Generator Condition:</label>
+      <div class="radio-group">
+        <label><input type="radio" name="gencond" value="good"> Good</label>
+        <label><input type="radio" name="gencond" value="avg"> Average</label>
+        <label><input type="radio" name="gencond" value="poor"> Poor</label>
+        <label><input type="radio" name="gencond" value="replace"> Needs Replaced</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field full-width"><label>Exercise Time:</label><input type="text"></div>
+  </div>
+  <div class="row">
+    <div class="field full-width"><label>Notes:</label></div>
+  </div>
+  <textarea rows="2"></textarea>
+</div>
+
+<!-- OIL -->
+<div class="section">
+  <div class="section-title">Oil</div>
+  <div class="row">
+    <div class="field">
+      <label>Oil Change Type:</label>
+      <div class="yn">
+        <label><input type="radio" name="oiltype" value="full"> Full</label>
+        <label><input type="radio" name="oiltype" value="half"> 1/2</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>Oil Filter Changed:</label>
+      <div class="yn">
+        <label><input type="radio" name="oilfilter" value="Y"> Y</label>
+        <label><input type="radio" name="oilfilter" value="N"> N</label>
+      </div>
+    </div>
+    <div class="field"><label>Part #:</label><input type="text"></div>
+  </div>
+  <div class="row">
+    <div class="field full-width"><label>Notes:</label></div>
+  </div>
+  <textarea rows="2"></textarea>
+</div>
+
+<!-- SIMULATED POWER OUTAGE -->
+<div class="section">
+  <div class="section-title">Simulated Power Outage</div>
+  <div class="row">
+    <div class="field">
+      <label>Generator startup after power outage:</label>
+      <div class="yn">
+        <label><input type="radio" name="sim1" value="Y"> Y</label>
+        <label><input type="radio" name="sim1" value="N"> N</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label>Transfer switch transfers to generator power:</label>
+      <div class="yn">
+        <label><input type="radio" name="sim2" value="Y"> Y</label>
+        <label><input type="radio" name="sim2" value="N"> N</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field"><label>Voltage from generator during simulation:</label><input type="text"></div>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label>Generator shuts down:</label>
+      <div class="yn">
+        <label><input type="radio" name="sim3" value="Y"> Y</label>
+        <label><input type="radio" name="sim3" value="N"> N</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label>Transfer switch transfers back to line power:</label>
+      <div class="yn">
+        <label><input type="radio" name="sim4" value="Y"> Y</label>
+        <label><input type="radio" name="sim4" value="N"> N</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GAS -->
+<div class="section">
+  <div class="section-title">Gas</div>
+  <div class="row">
+    <div class="field">
+      <label>Fuel Type:</label>
+      <div class="yn">
+        <label><input type="radio" name="fuel" value="NG"> NG</label>
+        <label><input type="radio" name="fuel" value="LP"> LP</label>
+      </div>
+    </div>
+    <div class="field"><label>Tank Level:</label><input type="text"></div>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label>Gas Leak Check – Found Leak:</label>
+      <div class="yn">
+        <label><input type="radio" name="gasleak" value="Y"> Y</label>
+        <label><input type="radio" name="gasleak" value="N"> N</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field full-width">
+      <label>Visual Check:</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox"> Rust</label>
+        <label><input type="checkbox"> Shut Off Valve</label>
+        <label><input type="checkbox"> Broken Straps</label>
+        <label><input type="checkbox"> Vented</label>
+        <label><input type="checkbox"> Flex Connection</label>
+        <label><input type="checkbox"> Regulator</label>
+        <label><input type="checkbox"> Plenum</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field full-width"><label>Notes:</label></div>
+  </div>
+  <textarea rows="2"></textarea>
+</div>
+
+<!-- TRANSFER SWITCH -->
+<div class="section">
+  <div class="section-title">Transfer Switch</div>
+  <div class="row">
+    <div class="field"><label>Serial #:</label><input type="text"></div>
+    <div class="field">
+      <label>Visual Check:</label>
+      <div class="radio-group">
+        <label><input type="radio" name="tscond" value="good"> Good</label>
+        <label><input type="radio" name="tscond" value="avg"> Average</label>
+        <label><input type="radio" name="tscond" value="poor"> Poor</label>
+        <label><input type="radio" name="tscond" value="replace"> Needs Replaced</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field full-width">
+      <label>Wire Check:</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox"> Good</label>
+        <label><input type="checkbox"> Loose</label>
+        <label><input type="checkbox"> Damaged</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field full-width"><label>Notes:</label></div>
+  </div>
+  <textarea rows="2"></textarea>
+</div>
+
+<!-- OTHER -->
+<div class="section">
+  <div class="section-title">Other</div>
+  <div class="row">
+    <div class="field">
+      <label>Surge Protector Installed at T.S.:</label>
+      <div class="yn">
+        <label><input type="radio" name="surge" value="Y"> Y</label>
+        <label><input type="radio" name="surge" value="N"> N</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>Green Lights:</label>
+      <div class="yn">
+        <label><input type="radio" name="green" value="Y"> Y</label>
+        <label><input type="radio" name="green" value="N"> N</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label>Monitoring System:</label>
+      <div class="yn">
+        <label><input type="radio" name="monitor" value="Y"> Y</label>
+        <label><input type="radio" name="monitor" value="N"> N</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>Connected:</label>
+      <div class="yn">
+        <label><input type="radio" name="connected" value="Y"> Y</label>
+        <label><input type="radio" name="connected" value="N"> N</label>
+      </div>
+    </div>
+    <div class="field"><label>%:</label><input type="text" style="max-width:80px;"></div>
+  </div>
+</div>
+
+<!-- SIGNATURES -->
+<div class="section" style="border-radius: 0 0 8px 8px;">
+  <div class="section-title">Signatures</div>
+  <div class="signature-section">
+    <div class="sig-box">Technician Signature / Date</div>
+    <div class="sig-box">Customer Signature / Date</div>
+  </div>
+</div>
+
+<!-- BUTTONS -->
+<div class="btn-container no-print">
+  <button onclick="window.print()">📄 Save as PDF / Print</button>
+  <button onclick="clearForm()">🗑️ Clear Form</button>
+</div>
+
+<script>
+function clearForm() {
+  if(confirm('Are you sure you want to clear all fields?')) {
+    document.querySelectorAll('input[type=text], input[type=date], input[type=number], textarea').forEach(el => el.value = '');
+    document.querySelectorAll('input[type=radio], input[type=checkbox]').forEach(el => el.checked = false);
+  }
+}
+</script>
+
+</body>
+</html>
