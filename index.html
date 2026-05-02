@@ -606,7 +606,7 @@ body.dark-mode input[type="date"] {
 
 input::placeholder, textarea::placeholder { 
   color: var(--text-dim) !important;
-  opacity: 1;
+  opacity: 0.4;
   font-size: 0.65rem;
 }
 
@@ -774,6 +774,33 @@ body.dark-mode .check-item:has(input:checked) span {
   text-shadow: 0 0 4px rgba(0, 255, 200, 0.4);
 }
 
+/* ── TEST GRID LAYOUT ── */
+.test-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.test-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.test-item label {
+  min-width: 75px;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .test-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
 /* ── Y/N TOGGLE ── */
 .yn-group {
   display: inline-flex;
@@ -932,7 +959,10 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
     margin: 0;
     padding: 0;
   }
-
+  input::placeholder, textarea::placeholder { 
+  color: transparent !important; 
+  opacity: 0 !important;
+}
   html, body {
     width: 8.5in;
     height: 11in;
@@ -1079,6 +1109,24 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
     print-color-adjust: exact;
   }
 
+  .test-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    margin-top: 6px !important;
+  }
+
+  .test-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+  }
+
+  .test-item label {
+    min-width: 60px !important;
+    font-size: 0.48rem !important;
+  }
+
   .yn-group { 
     border: 0.5px solid #D97706 !important;
     background: white !important;
@@ -1186,6 +1234,7 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
   </div>
 
   <div class="toolbar">
+    <button class="btn" onclick="window.location.href='https://brandonaog.github.io/AOG-hub/'">🏠 HOME</button>
     <button class="btn" onclick="window.print()" title="Print or save as PDF">📄 PDF</button>
     <button class="btn" onclick="clearForm()" title="Clear all fields">🗑 CLEAR</button>
   </div>
@@ -1209,16 +1258,16 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
           <label for="address">Address</label>
           <input type="text" id="address" class="long" placeholder="Address">
           <label for="tech">Tech</label>
-          <input type="text" id="tech" class="med" placeholder="Tech">
+          <input type="text" id="tech" class="med" placeholder="Tech"style="width: 165px;">
         </div>
 
         <div class="field-row">
           <label for="model">Model</label>
-          <input type="text" id="model" class="med" placeholder="Model">
+          <input type="text" id="model" class="med" placeholder="Model"style="width: 200px;">
           <label for="serial">SN</label>
-          <input type="text" id="serial" class="med" placeholder="SN">
+          <input type="text" id="serial" class="med" placeholder="SN"style="width: 200px;">
           <label for="hours">Hrs</label>
-          <input type="number" id="hours" class="short" placeholder="500">
+          <input type="number" id="hours" class="med" placeholder="500"style="width: 60px;">
         </div>
       </div>
     </div>
@@ -1233,8 +1282,8 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
           <div class="field-row">
             <label>Visual</label>
             <div class="check-group">
-              <label class="check-item"><input type="checkbox" name="appearance" value="corr"><span>Corr</span></label>
-              <label class="check-item"><input type="checkbox" name="appearance" value="cables"><span>Cables</span></label>
+              <label class="check-item"><input type="checkbox" name="appearance" value="corr"><span>Corrosion</span></label>
+              <label class="check-item"><input type="checkbox" name="appearance" value="cables"><span>Broken Cables</span></label>
               <label class="check-item"><input type="checkbox" name="appearance" value="good"><span>Good</span></label>
             </div>
           </div>
@@ -1242,9 +1291,10 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
           <div class="field-row">
             <label>Condition</label>
             <div class="check-group">
-              <label class="check-item"><input type="radio" name="battcond" value="good"><span>G</span></label>
-              <label class="check-item"><input type="radio" name="battcond" value="avg"><span>A</span></label>
-              <label class="check-item"><input type="radio" name="battcond" value="poor"><span>P</span></label>
+              <label class="check-item"><input type="radio" name="battcond" value="good"><span>Good</span></label>
+              <label class="check-item"><input type="radio" name="battcond" value="avg"><span>Average</span></label>
+              <label class="check-item"><input type="radio" name="battcond" value="poor"><span>Poor</span></label>
+              <label class="check-item"><input type="radio" name="battcond" value="replace"><span>Needs Replaced</span></label>
             </div>
           </div>
 
@@ -1265,8 +1315,13 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
             <input type="text" id="cca" class="short" placeholder="500">
             <label for="soh">SOH</label>
             <input type="number" id="soh" class="short" placeholder="100">
+          </div>
+
+          <div class="field-row">
             <label for="brand">Brand</label>
-            <input type="text" id="brand" class="med" placeholder="Brand">
+            <input type="text" id="dare" class="med" placeholder="Brand"style="width: 135px;">
+            <label for="batt-date">Date</label>
+            <input type="text" id="batt-date" class="med" placeholder="xx/xx">
           </div>
 
           <div class="field-row">
@@ -1279,9 +1334,9 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
           </div>
 
           <div class="field-row">
-            <label for="batnotes">Notes</label>
+            <label for="batnotes"></label>
           </div>
-          <textarea id="batnotes" placeholder="Battery notes..."></textarea>
+          <textarea id="batnotes" placeholder="Battery notes..." style="min-height: 60px;"></textarea>
         </div>
       </div>
 
@@ -1290,16 +1345,13 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
         <div class="section-header">Generator</div>
         <div class="section-body">
           <div class="field-row">
-            <label for="genvolt">Voltage</label>
-            <input type="text" id="genvolt" class="short" placeholder="240">
-          </div>
-
-          <div class="field-row">
-            <label>Pre-Startup</label>
+            <label>Startup Test</label>
             <div class="check-group">
               <label class="check-item"><input type="radio" name="startup" value="norm"><span>Normal</span></label>
-              <label class="check-item"><input type="radio" name="startup" value="abn"><span>Abnorm</span></label>
+              <label class="check-item"><input type="radio" name="startup" value="abn"><span>Abnormal</span></label>
             </div>
+            <label for="genvolt">Voltage</label>
+            <input type="text" id="genvolt" class="short" placeholder="120/240">
           </div>
 
           <div class="field-row">
@@ -1311,66 +1363,70 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
           </div>
 
           <div class="field-row">
-            <label>Coolant</label>
+            <label>Coolant Level</label>
             <div class="check-group">
               <label class="check-item"><input type="radio" name="coolant" value="full"><span>Full</span></label>
               <label class="check-item"><input type="radio" name="coolant" value="3/4"><span>3/4</span></label>
               <label class="check-item"><input type="radio" name="coolant" value="1/2"><span>1/2</span></label>
+              <label class="check-item"><input type="radio" name="coolant" value="empty"><span>Empty</span></label>
             </div>
           </div>
 
           <div class="field-row">
-            <label for="coolantadded">Added</label>
-            <input type="text" id="coolantadded" class="med" placeholder="Amt">
+            <label for="coolantadded">Added (oz)</label>
+            <input type="number" id="coolantadded" class="short" placeholder="0">
           </div>
 
           <div class="field-row">
-            <label>Wires</label>
+            <label>Wiring Check</label>
             <div class="check-group">
               <label class="check-item"><input type="checkbox" name="wires" value="loose"><span>Loose</span></label>
               <label class="check-item"><input type="checkbox" name="wires" value="broken"><span>Broken</span></label>
+              <label class="check-item"><input type="checkbox" name="wires" value="damaged"><span>Damaged</span></label>
               <label class="check-item"><input type="checkbox" name="wires" value="good"><span>Good</span></label>
             </div>
           </div>
 
           <div class="field-row">
-            <label>Interior</label>
+            <label>Interior Check</label>
             <div class="check-group">
               <label class="check-item"><input type="checkbox" name="interior" value="belts"><span>Belts</span></label>
+              <label class="check-item"><input type="checkbox" name="interior" value="pulleys"><span>Pulleys</span></label>
               <label class="check-item"><input type="checkbox" name="interior" value="hoses"><span>Hoses</span></label>
-              <label class="check-item"><input type="checkbox" name="interior" value="harness"><span>Harn</span></label>
+              <label class="check-item"><input type="checkbox" name="interior" value="harness"><span>Harness</span></label>
             </div>
           </div>
 
           <div class="field-row">
             <label>Condition</label>
             <div class="check-group">
-              <label class="check-item"><input type="radio" name="gencond" value="good"><span>G</span></label>
-              <label class="check-item"><input type="radio" name="gencond" value="avg"><span>A</span></label>
-              <label class="check-item"><input type="radio" name="gencond" value="poor"><span>P</span></label>
+              <label class="check-item"><input type="radio" name="gencond" value="good"><span>Good</span></label>
+              <label class="check-item"><input type="radio" name="gencond" value="average"><span>Average</span></label>
+              <label class="check-item"><input type="radio" name="gencond" value="poor"><span>Poor</span></label>
+              <label class="check-item"><input type="radio" name="gencond" value="replace"><span>Replace</span></label>
             </div>
           </div>
 
           <div class="field-row">
-            <label for="exercisetime">Exer (m)</label>
-            <input type="number" id="exercisetime" class="short" placeholder="20">
+            <label for="exercisetime">Exercise Schedule</label>
+            <input type="text" id="exercisetime" class="long" placeholder="e.g., Tues 11:00am">
           </div>
 
           <div class="field-row">
-            <label for="gennotes">Notes</label>
+            <label for="gennotes"></label>
           </div>
-          <textarea id="gennotes" placeholder="Generator notes..."></textarea>
+          <textarea id="gennotes" placeholder="Generator notes..." style="min-height: 60px;"></textarea>
         </div>
       </div>
 
     </div>
 
-    <!-- Oil Section -->
+    <!-- Oil & Filters -->
     <div class="section">
       <div class="section-header">Oil & Filters</div>
       <div class="section-body">
         <div class="field-row">
-          <label>Change</label>
+          <label>Oil Change</label>
           <div class="check-group">
             <label class="check-item"><input type="radio" name="oiltype" value="full"><span>Full</span></label>
             <label class="check-item"><input type="radio" name="oiltype" value="half"><span>1/2</span></label>
@@ -1383,65 +1439,82 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
             <label class="yn-label yn-label-n" for="of_n">N</label>
           </div>
           <label for="filterpart">Part #</label>
-          <input type="text" id="filterpart" class="med" placeholder="Part #">
-          <label for="oilnotes">Notes</label>
-          <textarea id="oilnotes" placeholder="Oil notes..." style="flex: 1; margin-top: 0;"></textarea>
+          <input type="text" id="filterpart" class="med" placeholder="Part #"style="width: 135px;">
         </div>
+
+        <div class="field-row">
+          <label for="oilnotes"></label>
+        </div>
+        <textarea id="oilnotes" placeholder="Oil & filter notes..." style="min-height: 50px;"></textarea>
       </div>
     </div>
 
-    <!-- Simulated Power Outage -->
+    <!-- Simulated Outage Test -->
     <div class="section">
       <div class="section-header">Simulated Outage Test</div>
       <div class="section-body">
-        <div class="field-row">
-          <label>Startup</label>
-          <div class="yn-group">
-            <input type="radio" name="sim1" id="sim1_y" value="Y" class="yn-y">
-            <label class="yn-label yn-label-y" for="sim1_y">Y</label>
-            <input type="radio" name="sim1" id="sim1_n" value="N" class="yn-n">
-            <label class="yn-label yn-label-n" for="sim1_n">N</label>
+        <div class="test-grid">
+          <div class="test-item">
+            <label>Generator Started Up?</label>
+            <div class="yn-group">
+              <input type="radio" name="sim1" id="sim1_y" value="Y" class="yn-y">
+              <label class="yn-label yn-label-y" for="sim1_y">Y</label>
+              <input type="radio" name="sim1" id="sim1_n" value="N" class="yn-n">
+              <label class="yn-label yn-label-n" for="sim1_n">N</label>
+            </div>
           </div>
-          <label>Transfer</label>
-          <div class="yn-group">
-            <input type="radio" name="sim2" id="sim2_y" value="Y" class="yn-y">
-            <label class="yn-label yn-label-y" for="sim2_y">Y</label>
-            <input type="radio" name="sim2" id="sim2_n" value="N" class="yn-n">
-            <label class="yn-label yn-label-n" for="sim2_n">N</label>
+
+          <div class="test-item">
+            <label>Transfered to Generator Power?</label>
+            <div class="yn-group">
+              <input type="radio" name="sim2" id="sim2_y" value="Y" class="yn-y">
+              <label class="yn-label yn-label-y" for="sim2_y">Y</label>
+              <input type="radio" name="sim2" id="sim2_n" value="N" class="yn-n">
+              <label class="yn-label yn-label-n" for="sim2_n">N</label>
+            </div>
           </div>
-          <label>Shutdown</label>
-          <div class="yn-group">
-            <input type="radio" name="sim3" id="sim3_y" value="Y" class="yn-y">
-            <label class="yn-label yn-label-y" for="sim3_y">Y</label>
-            <input type="radio" name="sim3" id="sim3_n" value="N" class="yn-n">
-            <label class="yn-label yn-label-n" for="sim3_n">N</label>
+
+          <div class="test-item">
+            <label>transfered back to line power?</label>
+            <div class="yn-group">
+              <input type="radio" name="sim3" id="sim3_y" value="Y" class="yn-y">
+              <label class="yn-label yn-label-y" for="sim3_y">Y</label>
+              <input type="radio" name="sim3" id="sim3_n" value="N" class="yn-n">
+              <label class="yn-label yn-label-n" for="sim3_n">N</label>
+            </div>
           </div>
-          <label>Back</label>
-          <div class="yn-group">
-            <input type="radio" name="sim4" id="sim4_y" value="Y" class="yn-y">
-            <label class="yn-label yn-label-y" for="sim4_y">Y</label>
-            <input type="radio" name="sim4" id="sim4_n" value="N" class="yn-n">
-            <label class="yn-label yn-label-n" for="sim4_n">N</label>
+
+          <div class="test-item">
+            <label>Generator shut down?</label>
+            <div class="yn-group">
+              <input type="radio" name="sim4" id="sim4_y" value="Y" class="yn-y">
+              <label class="yn-label yn-label-y" for="sim4_y">Y</label>
+              <input type="radio" name="sim4" id="sim4_n" value="N" class="yn-n">
+              <label class="yn-label yn-label-n" for="sim4_n">N</label>
+            </div>
           </div>
-          <label for="simvolt">V</label>
-          <input type="text" id="simvolt" class="short" placeholder="240">
+
+          <div class="test-item" style="grid-column: 1 / -1;">
+            <label for="simvolt">Voltage during simulation</label>
+            <input type="text" id="simvolt" class="short" placeholder="240V">
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Gas/Fuel -->
+    <!-- Gas System -->
     <div class="section">
       <div class="section-header">Gas System</div>
       <div class="section-body">
         <div class="field-row">
-          <label>Fuel</label>
+          <label>Fuel Type</label>
           <div class="check-group">
             <label class="check-item"><input type="radio" name="fuel" value="NG"><span>NG</span></label>
             <label class="check-item"><input type="radio" name="fuel" value="LP"><span>LP</span></label>
           </div>
-          <label for="tanklevel">Level</label>
+          <label for="tanklevel">Tank Level</label>
           <input type="text" id="tanklevel" class="short" placeholder="Full">
-          <label>Leak</label>
+          <label>Leak Found?</label>
           <div class="yn-group">
             <input type="radio" name="gasleak" id="gl_y" value="Y" class="yn-y">
             <label class="yn-label yn-label-y" for="gl_y">Y</label>
@@ -1451,40 +1524,79 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
         </div>
 
         <div class="field-row">
-          <label>Visual</label>
+          <label>Visual Inspection</label>
           <div class="check-group">
             <label class="check-item"><input type="checkbox" name="gasvisual" value="rust"><span>Rust</span></label>
-            <label class="check-item"><input type="checkbox" name="gasvisual" value="valve"><span>Valve</span></label>
+            <label class="check-item"><input type="checkbox" name="gasvisual" value="Shut off valve"><span>Shut off Valve</span></label>
             <label class="check-item"><input type="checkbox" name="gasvisual" value="straps"><span>Straps</span></label>
-            <label class="check-item"><input type="checkbox" name="gasvisual" value="flex"><span>Flex</span></label>
+            <label class="check-item"><input type="checkbox" name="gasvisual" value="flex"><span>Flex connection</span></label>
+            <label class="check-item"><input type="checkbox" name="gasvisual" value="reg"><span>Regulator</span></label>
+<label>VENTED?</label>
+          <div class="yn-group">
+            <input type="radio" name="vented" id="vl_y" value="Y" class="yn-y">
+            <label class="yn-label yn-label-y" for="vl_y">Y</label>
+            <input type="radio" name="vented" id="vl_n" value="N" class="yn-n">
+            <label class="yn-label yn-label-n" for="vl_n">N</label>
           </div>
-          <label for="gasnotes">Notes</label>
-          <textarea id="gasnotes" placeholder="Gas notes..." style="flex: 1; margin-top: 0;"></textarea>
         </div>
+
+        <div class="field-row">
+          <label for="gasnotes"></label>
+        </div>
+        <textarea id="gasnotes" placeholder="Gas system notes..." style="min-height: 50px;"></textarea>
       </div>
     </div>
 
     <!-- Transfer Switch -->
     <div class="section">
-      <div class="section-header">Transfer Switch & Other</div>
+      <div class="section-header">Transfer Switch</div>
       <div class="section-body">
         <div class="field-row">
-          <label for="tsserial">TS SN</label>
-          <input type="text" id="tsserial" class="med" placeholder="SN">
-          <label>Cond</label>
+          <label for="tsserial">Transfer switch Serial # 1</label>
+          <input type="text" id="tsserial" class="med" placeholder="Serial #####"style="width: 150px;">
+          <label>Condition</label>
           <div class="check-group">
-            <label class="check-item"><input type="radio" name="tscond" value="good"><span>G</span></label>
-            <label class="check-item"><input type="radio" name="tscond" value="avg"><span>A</span></label>
-            <label class="check-item"><input type="radio" name="tscond" value="poor"><span>P</span></label>
+            <label class="check-item"><input type="radio" name="tscond" value="good"><span>Good</span></label>
+            <label class="check-item"><input type="radio" name="tscond" value="avg"><span>Average</span></label>
+            <label class="check-item"><input type="radio" name="tscond" value="poor"><span>Poor</span></label>
+            <label class="check-item"><input type="radio" name="tscond" value="replace"><span>Needs replaced</span></label>
+        <div class="field-row">
+          <label for="tsserial">Transfer switch Serial # 2 </label>
+          <input type="text" id="tsserial" class="med" placeholder="Serial #####"style="width: 150px;">
+          <label>Condition</label>
+          <div class="check-group">
+            <label class="check-item"><input type="radio" name="tscond" value="good"><span>Good</span></label>
+            <label class="check-item"><input type="radio" name="tscond" value="avg"><span>Average</span></label>
+            <label class="check-item"><input type="radio" name="tscond" value="poor"><span>Poor</span></label>
+            <label class="check-item"><input type="radio" name="tscond" value="replace"><span>Needs replaced</span></label>
+  <label for="tsnotes"></label>
+        </div>
+        <textarea id="tsnotes" placeholder="Transfer notes..." style="min-height: 50px;"></textarea>
           </div>
-          <label>Surge</label>
+        </div>
+
+          </div>
+        </div>
+
+
+  </div>
+ <!-- Other -->
+    <div class="section">
+      <div class="section-header">other</div>
+      <div class="section-body">
+        <div class="field-row">
+               </div>
+        </div>
+
+        <div class="field-row">
+          <label>Surge Protection</label>
           <div class="yn-group">
             <input type="radio" name="surge" id="surge_y" value="Y" class="yn-y">
             <label class="yn-label yn-label-y" for="surge_y">Y</label>
             <input type="radio" name="surge" id="surge_n" value="N" class="yn-n">
             <label class="yn-label yn-label-n" for="surge_n">N</label>
           </div>
-          <label>Green</label>
+          <label>Green Button</label>
           <div class="yn-group">
             <input type="radio" name="green" id="green_y" value="Y" class="yn-y">
             <label class="yn-label yn-label-y" for="green_y">Y</label>
@@ -1494,14 +1606,14 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
         </div>
 
         <div class="field-row">
-          <label>Monitor</label>
+          <label>Monitor Ready</label>
           <div class="yn-group">
             <input type="radio" name="monitor" id="monitor_y" value="Y" class="yn-y">
             <label class="yn-label yn-label-y" for="monitor_y">Y</label>
             <input type="radio" name="monitor" id="monitor_n" value="N" class="yn-n">
             <label class="yn-label yn-label-n" for="monitor_n">N</label>
           </div>
-          <label>Connect</label>
+          <label>Connected</label>
           <div class="yn-group">
             <input type="radio" name="connected" id="conn_y" value="Y" class="yn-y">
             <label class="yn-label yn-label-y" for="conn_y">Y</label>
@@ -1513,17 +1625,10 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
         </div>
 
         <div class="field-row">
-          <label for="tsnotes">Notes</label>
-        </div>
-        <textarea id="tsnotes" placeholder="Transfer switch & other notes..."></textarea>
-      </div>
-    </div>
-
-  </div>
-
+                </div>
   <div class="footer">
     <span class="footer-text">GENERATOR MAINTENANCE REPORT · CONFIDENTIAL</span>
-    <span style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-dim);">Ver 2.0</span>
+    <span style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-dim);">Ver 2.1</span>
   </div>
 
   <div class="page-corner-bl"></div>
