@@ -1715,24 +1715,45 @@ function restoreDraft() {
   } catch (e) {}
 }
 
+// CLEAR FORM - Only define once
 function clearForm() {
   if (!confirm('Clear all fields?')) return;
-  
   document.querySelectorAll('input[type="text"], input[type="date"], input[type="number"], textarea').forEach(el => {
     el.value = '';
   });
-  
   document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(el => {
     el.checked = false;
   });
-  
   localStorage.removeItem(DRAFT_KEY);
 }
 
+// PRINT FORM - Safari fix
+function printForm() {
+  // Remove dark mode before printing
+  const wasDark = document.body.classList.contains('dark-mode');
+  if (wasDark) {
+    document.body.classList.remove('dark-mode');
+  }
+  
+  // Small delay to ensure styles apply
+  setTimeout(() => {
+    window.print();
+    
+    // Restore dark mode after print dialog
+    if (wasDark) {
+      setTimeout(() => {
+        document.body.classList.add('dark-mode');
+      }, 500);
+    }
+  }, 100);
+}
+
+// Auto-save every 30 seconds
 setInterval(saveDraft, 30000);
 document.addEventListener('change', saveDraft);
 document.addEventListener('input', saveDraft);
 
+// Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
   const todayInput = document.getElementById('date');
   if (todayInput && !todayInput.value) {
@@ -1744,32 +1765,6 @@ document.addEventListener('DOMContentLoaded', function() {
   setupThemeToggle();
   restoreDraft();
 });
-function clearForm() {
-  if (!confirm('Clear all fields?')) return;
-  document.querySelectorAll('input[type="text"], input[type="date"], input[type="number"], textarea').forEach(el => {
-    el.value = '';
-  });
-  document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(el => {
-    el.checked = false;
-  });
-  localStorage.removeItem(DRAFT_KEY);
-}
-
-// Add this function
-function printForm() {
-  const wasDark = document.body.classList.contains('dark-mode');
-  if (wasDark) document.body.classList.remove('dark-mode');
-  
-  window.print();
-  
-  // Restore dark mode after print dialog closes
-  if (wasDark) {
-    setTimeout(() => {
-      document.body.classList.add('dark-mode');
-    }, 500);
-  }
-}
-
 </script>
 
 </body>
