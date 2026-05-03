@@ -145,34 +145,25 @@ body.dark-mode .page {
   .page { box-shadow: none; border: none; max-width: 100%; }
   .page::before, .page::after,
   .page-corner-bl, .page-corner-br { display: none; }
-.header {
-    flex-wrap: wrap;
-    gap: 4px;
-    padding: 4px 8px;
+
+  .header {
+    flex-wrap: nowrap;
+    gap: 6px;
+    padding: 6px 8px;
     min-height: auto;
+    justify-content: space-between;
   }
 
   .header-logo {
-    flex: 1;
+    flex: 0 1 auto;
     min-width: 0;
+    overflow: hidden;
   }
 
-  .company-name {
-    font-size: 0.65rem;
-    letter-spacing: 1px;
+  .logo-img {
+    width: 32px;
+    height: 32px;
   }
-
-  .doc-title {
-    font-size: 0.65rem;
-    letter-spacing: 1.5px;
-    white-space: nowrap;
-  }
-
-  .theme-toggle-btn {
-    width: 28px;
-    height: 28px;
-  }
-}
 
 /* ── HEADER ── */
 .header {
