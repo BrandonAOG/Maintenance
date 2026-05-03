@@ -1725,25 +1725,59 @@ function clearForm() {
 
 // PRINT FORM - Safari fix
 function printForm() {
-  // Remove dark mode before printing
   const wasDark = document.body.classList.contains('dark-mode');
-  if (wasDark) {
-    document.body.classList.remove('dark-mode');
-  }
   
-  // Small delay to ensure styles apply
+  // Force light mode styles via a temporary injected stylesheet
+  const printStyle = document.createElement('style');
+  printStyle.id = 'force-print-light';
+  printStyle.textContent = `
+    body, body.dark-mode { 
+      background: white !important; 
+      color: #1F2937 !important; 
+    }
+    body.dark-mode .page,
+    body.dark-mode .header,
+    body.dark-mode .section,
+    body.dark-mode .section-header,
+    body.dark-mode .section-body,
+    body.dark-mode .toolbar,
+    body.dark-mode .footer,
+    body.dark-mode .content {
+      background: white !important;
+      color: #1F2937 !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+    body.dark-mode input, 
+    body.dark-mode textarea, 
+    body.dark-mode select {
+      background: white !important;
+      color: #1F2937 !important;
+      border-color: rgba(217,119,6,0.4) !important;
+      box-shadow: none !important;
+      caret-color: #D97706 !important;
+    }
+    body.dark-mode label { color: #6B7280 !important; text-shadow: none !important; }
+    body.dark-mode .company-name, body.dark-mode .doc-title { color: #D97706 !important; text-shadow: none !important; }
+    body.dark-mode .section-header { background: #f5f5f5 !important; color: #D97706 !important; text-shadow: none !important; }
+    body.dark-mode .yn-group { background: white !important; border-color: rgba(217,119,6,0.4) !important; }
+    body.dark-mode .yn-group .yn-label { background: white !important; color: #6B7280 !important; text-shadow: none !important; }
+    body.dark-mode .check-item { background: white !important; border-color: rgba(217,119,6,0.3) !important; }
+    body.dark-mode .check-item span { color: #1F2937 !important; text-shadow: none !important; }
+    body.dark-mode .footer-text { color: #9CA3AF !important; text-shadow: none !important; }
+    body.dark-mode .page { border-color: #D97706 !important; box-shadow: none !important; }
+  `;
+  document.head.appendChild(printStyle);
+
   setTimeout(() => {
     window.print();
-    
-    // Restore dark mode after print dialog
-    if (wasDark) {
-      setTimeout(() => {
-        document.body.classList.add('dark-mode');
-      }, 500);
-    }
-  }, 100);
+    // Remove the injected stylesheet after printing
+    setTimeout(() => {
+      const el = document.getElementById('force-print-light');
+      if (el) el.remove();
+    }, 1000);
+  }, 150);
 }
-
 // Auto-save every 30 seconds
 setInterval(saveDraft, 30000);
 document.addEventListener('change', saveDraft);
