@@ -140,11 +140,38 @@ body.dark-mode .page {
 .page-corner-bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
 .page-corner-br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   body { padding: 0; }
   .page { box-shadow: none; border: none; max-width: 100%; }
   .page::before, .page::after,
   .page-corner-bl, .page-corner-br { display: none; }
+.header {
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 4px 8px;
+    min-height: auto;
+  }
+
+  .header-logo {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .company-name {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+  }
+
+  .doc-title {
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+  }
+
+  .theme-toggle-btn {
+    width: 28px;
+    height: 28px;
+  }
 }
 
 /* ── HEADER ── */
