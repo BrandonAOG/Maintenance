@@ -998,7 +998,7 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
 
   html, body {
     width: 8.5in;
-    height: 11in;
+    height: 10.95in;
     margin: 0 !important;
     padding: 0 !important;
     overflow: hidden !important;
@@ -1007,8 +1007,8 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
   .page {
     max-width: 8.5in !important;
     width: 8.5in !important;
-    height: 11in !important;
-    overflow: hidden !important;
+    height: 10.95in !important;
+    overflow: visible !important;
     display: flex !important;
     flex-direction: column !important;
     box-sizing: border-box !important;
@@ -1068,9 +1068,21 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
 .footer {
     margin-top: auto !important;
     flex-shrink: 0 !important;
-    padding: 1px 10px !important;
+    padding: 4px 20px !important;
     border-top: 1px solid #D97706 !important;
     background: white !important;
+    line-height: 1.4 !important;
+    overflow: visible !important;
+    min-height: 22px !important;
+    box-sizing: border-box !important;
+  }
+
+  .footer-text,
+  .footer span {
+    line-height: 1.4 !important;
+    overflow: visible !important;
+    white-space: nowrap !important;
+    font-size: 0.50rem !important;
   }
   .two-column {
     display: grid !important;
