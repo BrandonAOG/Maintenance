@@ -1841,6 +1841,13 @@ function clearForm() {
 function printForm() {
   const wasDark = document.body.classList.contains('dark-mode');
 
+  // Detect Safari (excluding Chrome which also has "Safari" in UA)
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+  if (isSafari) {
+    alert('⚠️ SAFARI PRINT TIP\n\nFor best results, in the print preview:\n\n1. Tap the scale slider/zoom\n2. Scale DOWN by 1\n3. Then scale BACK UP by 1\n\nThis ensures the page fits properly on one page.');
+  }
+
   // Inject forced light styles
   const printStyle = document.createElement('style');
   printStyle.id = 'force-print-light';
@@ -1860,20 +1867,17 @@ function printForm() {
   `;
   document.head.appendChild(printStyle);
 
-  // Also strip dark-mode class to be safe
   if (wasDark) document.body.classList.remove('dark-mode');
 
   setTimeout(() => {
     window.print();
     setTimeout(() => {
-      // Restore everything
       const el = document.getElementById('force-print-light');
       if (el) el.remove();
       if (wasDark) document.body.classList.add('dark-mode');
     }, 1000);
   }, 250);
-}
-// Auto-save every 30 seconds
+}// Auto-save every 30 seconds
 setInterval(saveDraft, 30000);
 document.addEventListener('change', saveDraft);
 document.addEventListener('input', saveDraft);
