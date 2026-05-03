@@ -647,8 +647,8 @@ textarea {
   border: 1px solid rgba(217,119,6,0.15);
   padding: 2px 3px;
   margin-top: 1px;
-  min-height: 24px;
-  max-height: 35px;
+  min-height: auto !important;
+  max-height: none !important;
   background: var(--panel);
   color: var(--text);
   transition: all 0.3s ease;
@@ -959,10 +959,12 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
     margin: 0;
     padding: 0;
   }
+
   input::placeholder, textarea::placeholder { 
-  color: transparent !important; 
-  opacity: 0 !important;
-}
+    color: transparent !important; 
+    opacity: 0 !important;
+  }
+
   html, body {
     width: 8.5in;
     height: 11in;
@@ -980,101 +982,118 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
     flex-direction: column !important;
     box-sizing: border-box !important;
     margin: 0 !important;
-    padding: 2px !important;
+    padding: 0.05in !important;
     border: 1.5px solid #D97706 !important;
     box-shadow: none !important;
   }
 
   .header {
-    padding: 3px 10px !important;
-    min-height: auto !important;
-    gap: 4px !important;
+    flex-shrink: 0;
+    margin-bottom: 2px !important;
+    padding: 3px 8px !important;
     border-bottom: 0.5px solid #D97706 !important;
     background: white !important;
   }
 
   .logo-img {
-    width: 35px !important;
-    height: 35px !important;
+    width: 50px !important;
+    height: 50px !important;
   }
 
   .company-name {
     color: #D97706 !important;
     text-shadow: none !important;
-    font-size: 0.75rem !important;
-    letter-spacing: 1.5px !important;
+    font-size: 1.1rem !important;
+    letter-spacing: 1px !important;
   }
 
   .doc-title {
     color: #D97706 !important;
     text-shadow: none !important;
-    font-size: 0.8rem !important;
-    letter-spacing: 2px !important;
+    font-size: 1.1rem !important;
+    letter-spacing: 1.5px !important;
   }
 
-  .toolbar { 
+  .toolbar, button, .theme-toggle-btn { 
     display: none !important;
-    padding: 0 !important;
-    height: 0 !important;
-    border: none !important;
   }
 
   .page::before, .page::after,
-  .page-corner-bl, .page-corner-br { display: block !important; border-color: #D97706 !important; }
-  .header::after { display: none !important; }
-  .theme-toggle-btn { display: none !important; }
+  .page-corner-bl, .page-corner-br { 
+    display: block !important; 
+    border-color: #D97706 !important; 
+  }
+
+  .header::after { 
+    display: none !important; 
+  }
 
   .content {
     flex: 1 !important;
     overflow: hidden !important;
-    padding: 3px 6px !important;
+    padding: 2px 4px !important;
     margin: 0 !important;
   }
-
+.footer {
+    margin-top: auto !important;
+    flex-shrink: 0 !important;
+    padding: 1px 10px !important;
+    border-top: 1px solid #D97706 !important;
+    background: white !important;
+  }
   .two-column {
+    display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 3px !important;
-    margin-bottom: 3px !important;
+    gap: 2px !important;
+    margin-bottom: 2px !important;
   }
 
   .section { 
     background: white !important;
     border: 0.5px solid #D97706 !important;
-    margin-bottom: 3px !important;
-    padding: 0 !important;
+    margin-bottom: 2px !important;
+    padding: 1px !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     box-shadow: none !important;
   }
 
-  .section::before { background: none !important; }
+  .section::before { 
+    background: none !important; 
+  }
 
   .section-header { 
     background: #f5f5f5 !important;
     color: #D97706 !important;
     border-bottom: 0.5px solid #D97706 !important;
     text-shadow: none !important;
-    padding: 1px 7px !important;
-    font-size: 0.55rem !important;
+    padding: 2px 6px !important;
+    font-size: 0.5rem !important;
     min-height: auto !important;
   }
 
   .section-header::before { 
-    width: 3px !important;
-    height: 3px !important;
+    width: 2px !important;
+    height: 0 !important;
     background: #D97706 !important;
     box-shadow: none !important;
   }
 
   .section-body { 
-    padding: 2px 6px !important;
+    padding: 2px 4px !important;
     background: white !important;
+  }
+
+  .field-row {
+    display: flex !important;
+    margin-bottom: 1px !important;
+    gap: 2px !important;
   }
 
   label {
     color: #6B7280 !important;
-    font-size: 0.48rem !important;
-    letter-spacing: 0.5px !important;
+    font-size: 0.45rem !important;
+    letter-spacing: 0.3px !important;
   }
 
   input[type="text"], 
@@ -1085,130 +1104,84 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
   textarea, 
   select {
     background: white !important;
-    border-bottom: 1px solid #D97706 !important;
+    border-bottom: 0.5px solid #D97706 !important;
     border-top: none !important;
     border-left: none !important;
     border-right: none !important;
     color: #1F2937 !important;
-    min-height: 20px !important;
-    padding: 1px 2px !important;
-    font-size: 0.65rem !important;
+    min-height: 16px !important;
+    padding: 0px 2px !important;
+    font-size: 0.6rem !important;
     box-shadow: none !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
   textarea { 
-    min-height: 18px !important;
-    max-height: 28px !important;
+    max-height: none !important;  
+    height: auto !important;
+    min-height: 40px !important;
     background: white !important;
     border: 0.5px solid #D97706 !important;
-    font-size: 0.6rem !important;
-    padding: 1px 2px !important;
+    font-size: 0.55rem !important;
+    padding: 0px 2px !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+  }
+
+  #batnotes, #gennotes {
+    min-height: 50px !important;
+    height: 50px !important;
+  }
+
+  #oilnotes, #gasnotes, #tsnotes {
+    min-height: 30px !important;
+    height: 30px !important;
   }
 
   .test-grid {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 8px !important;
-    margin-top: 6px !important;
+    gap: 2px !important;
+    margin-top: 2px !important;
   }
 
   .test-item {
     display: flex !important;
     align-items: center !important;
-    gap: 6px !important;
+    gap: 4px !important;
   }
 
   .test-item label {
-    min-width: 60px !important;
-    font-size: 0.48rem !important;
+    min-width: 50px !important;
+    font-size: 0.45rem !important;
   }
 
   .yn-group { 
     border: 0.5px solid #D97706 !important;
     background: white !important;
-    height: 22px !important;
+    height: 18px !important;
+    display: inline-flex !important;
   }
 
   .yn-group .yn-label { 
-    min-height: 22px !important;
-    padding: 0 6px !important;
+    min-height: 18px !important;
+    padding: 0 4px !important;
     color: #6B7280 !important;
     border-right: 0.5px solid #D97706 !important;
-    font-size: 0.52rem !important;
+    font-size: 0.45rem !important;
     background: white !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .yn-group .yn-label:last-child {
+    border-right: none !important;
   }
 
   .yn-group .yn-y:checked + .yn-label-y {
     background: #f0f0f0 !important;
-    color: #059669 !important;
-    text-shadow: none !important;
-  }
-
-  .yn-group .yn-n:checked + .yn-label-n {
-    background: #f0f0f0 !important;
-    color: #DC2626 !important;
-    text-shadow: none !important;
-  }
-
-  .check-item { 
-    background: white !important;
-    border: 0.5px solid #D97706 !important;
-    min-height: 20px !important;
-    padding: 0.5px 4px 0.5px 2px !important;
-    font-size: 0.48rem !important;
-  }
-
-  .check-item span {
-    color: #1F2937 !important;
-    text-shadow: none !important;
-    font-size: 0.48rem !important;
-  }
-
-  .check-item:has(input:checked) {
-    background: white !important;
-    border: 0.5px solid #D97706 !important;
-    box-shadow: none !important;
-  }
-
-  .check-item:has(input:checked) span {
-    color: #D97706 !important;
-    text-shadow: none !important;
-  }
-
-  .field-row {
-    margin-bottom: 2px !important;
-  }
-
-  .footer {
-    background: white !important;
-    border-top: 0.5px solid #D97706 !important;
-    padding: 1px 6px !important;
-    flex-shrink: 0 !important;
-    margin-top: auto !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-    min-height: auto !important;
-  }
-
-  .footer-text {
-    color: #D97706 !important;
-    font-size: 0.45rem !important;
-    letter-spacing: 1px !important;
-  }
-
-  body.dark-mode {
-    background: white !important;
-  }
-
-  * { 
-    -webkit-print-color-adjust: exact !important; 
-    print-color-adjust: exact !important;
-  }
-}
+    color: #059669 !important
 </style>
 </head>
 
@@ -1336,7 +1309,8 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
           <div class="field-row">
             <label for="batnotes"></label>
           </div>
-          <textarea id="batnotes" placeholder="Battery notes..." style="min-height: 60px;"></textarea>
+         <textarea id="batnotes" placeholder="Battery notes..." style="height:60px;"></textarea>
+
         </div>
       </div>
 
@@ -1403,19 +1377,20 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
               <label class="check-item"><input type="radio" name="gencond" value="good"><span>Good</span></label>
               <label class="check-item"><input type="radio" name="gencond" value="average"><span>Average</span></label>
               <label class="check-item"><input type="radio" name="gencond" value="poor"><span>Poor</span></label>
-              <label class="check-item"><input type="radio" name="gencond" value="replace"><span>Replace</span></label>
+              <label class="check-item"><input type="radio" name="gencond" value=" Needs replaced"><span>Needs Replaced</span></label>
             </div>
           </div>
 
           <div class="field-row">
             <label for="exercisetime">Exercise Schedule</label>
-            <input type="text" id="exercisetime" class="long" placeholder="e.g., Tues 11:00am">
+            <input type="text" id="exercisetime" class="med" placeholder="e.g., Tues 11:00am">
           </div>
 
           <div class="field-row">
             <label for="gennotes"></label>
           </div>
-          <textarea id="gennotes" placeholder="Generator notes..." style="min-height: 60px;"></textarea>
+         <textarea id="gennotes" placeholder="Generator notes..." style="height:60px;"></textarea>
+
         </div>
       </div>
 
@@ -1546,93 +1521,114 @@ body.dark-mode::-webkit-scrollbar-thumb:hover {
         <textarea id="gasnotes" placeholder="Gas system notes..." style="min-height: 50px;"></textarea>
       </div>
     </div>
+</div>
 
-    <!-- Transfer Switch -->
-    <div class="section">
-      <div class="section-header">Transfer Switch</div>
-      <div class="section-body">
-        <div class="field-row">
-          <label for="tsserial">Transfer switch Serial # 1</label>
-          <input type="text" id="tsserial" class="med" placeholder="Serial #####"style="width: 150px;">
-          <label>Condition</label>
-          <div class="check-group">
-            <label class="check-item"><input type="radio" name="tscond" value="good"><span>Good</span></label>
-            <label class="check-item"><input type="radio" name="tscond" value="avg"><span>Average</span></label>
-            <label class="check-item"><input type="radio" name="tscond" value="poor"><span>Poor</span></label>
-            <label class="check-item"><input type="radio" name="tscond" value="replace"><span>Needs replaced</span></label>
-        <div class="field-row">
-          <label for="tsserial">Transfer switch Serial # 2 </label>
-          <input type="text" id="tsserial" class="med" placeholder="Serial #####"style="width: 150px;">
-          <label>Condition</label>
-          <div class="check-group">
-            <label class="check-item"><input type="radio" name="tscond" value="good"><span>Good</span></label>
-            <label class="check-item"><input type="radio" name="tscond" value="avg"><span>Average</span></label>
-            <label class="check-item"><input type="radio" name="tscond" value="poor"><span>Poor</span></label>
-            <label class="check-item"><input type="radio" name="tscond" value="replace"><span>Needs replaced</span></label>
-  <label for="tsnotes"></label>
+<!-- Transfer Switch Section -->
+<div class="section">
+  <div class="section-header">Transfer Switch</div>
+  <div class="section-body">
+    
+    <!-- Field Row #1 -->
+    <div class="field-row">
+      <div class="field-group">
+        <label for="tsserial1">TS Serial # 1</label>
+        <input type="text" id="tsserial1" placeholder="SN">
+      </div>
+      <div class="field-group">
+        <label>Condition</label>
+        <div class="radio-group">
+          <label><input type="radio" name="tscond1"> Good</label>
+          <label><input type="radio" name="tscond1"> Avg</label>
+          <label><input type="radio" name="tscond1"> Poor</label>
+          <label><input type="radio" name="tscond1"> Needs Replaced</label>
         </div>
-        <textarea id="tsnotes" placeholder="Transfer notes..." style="min-height: 50px;"></textarea>
-          </div>
+      </div>
+    </div>  
+    
+    <!-- Field Row #2 -->
+    <div class="field-row">
+      <div class="field-group">
+        <label for="tsserial2">TS Serial # 2</label>
+        <input type="text" id="tsserial2" placeholder="SN">
+      </div>
+      <div class="field-group">
+        <label>Condition</label>
+        <div class="radio-group">
+          <label><input type="radio" name="tscond2"> Good</label>
+          <label><input type="radio" name="tscond2"> Avg</label>
+          <label><input type="radio" name="tscond2"> Poor</label>
+          <label><input type="radio" name="tscond2"> Needs Replaced</label>
         </div>
+      </div>
+    </div>  
+    
+    <!-- Notes Textarea -->
+    <div class="field-row">
+      <label for="tsnotes"></label>
+      <textarea id="tsnotes" placeholder="Transfer Switch notes..."></textarea>
+    </div> 
+    
+  </div>  
+</div>  
 
-          </div>
+<!-- Other Section (SEPARATE) -->
+<div class="section">
+  <div class="section-header">Other</div>
+  <div class="section-body">
+    
+    <div class="field-row">
+      <div class="field-group">
+        <label>Surge Protection</label>
+        <div class="yn-group">
+          <input type="radio" id="surge_y" name="surge" value="Y">
+          <label class="yn-label yn-label-y" for="surge_y">Y</label>
+          <input type="radio" id="surge_n" name="surge" value="N">
+          <label class="yn-label yn-label-n" for="surge_n">N</label>
         </div>
-
-
-  </div>
- <!-- Other -->
-    <div class="section">
-      <div class="section-header">other</div>
-      <div class="section-body">
-        <div class="field-row">
-               </div>
+      </div>
+      <div class="field-group">
+        <label>Green Light</label>
+        <div class="yn-group">
+          <input type="radio" id="green_y" name="green" value="Y">
+          <label class="yn-label yn-label-y" for="green_y">Y</label>
+          <input type="radio" id="green_n" name="green" value="N">
+          <label class="yn-label yn-label-n" for="green_n">N</label>
         </div>
-
-        <div class="field-row">
-          <label>Surge Protection</label>
-          <div class="yn-group">
-            <input type="radio" name="surge" id="surge_y" value="Y" class="yn-y">
-            <label class="yn-label yn-label-y" for="surge_y">Y</label>
-            <input type="radio" name="surge" id="surge_n" value="N" class="yn-n">
-            <label class="yn-label yn-label-n" for="surge_n">N</label>
-          </div>
-          <label>Green light</label>
-          <div class="yn-group">
-            <input type="radio" name="green" id="green_y" value="Y" class="yn-y">
-            <label class="yn-label yn-label-y" for="green_y">Y</label>
-            <input type="radio" name="green" id="green_n" value="N" class="yn-n">
-            <label class="yn-label yn-label-n" for="green_n">N</label>
-          </div>
-        
-        <div class="field-row">
-          <label>Monitor Ready</label>
-          <div class="yn-group">
-            <input type="radio" name="monitor" id="monitor_y" value="Y" class="yn-y">
-            <label class="yn-label yn-label-y" for="monitor_y">Y</label>
-            <input type="radio" name="monitor" id="monitor_n" value="N" class="yn-n">
-            <label class="yn-label yn-label-n" for="monitor_n">N</label>
-          </div>
-          <label>Connected</label>
-          <div class="yn-group">
-            <input type="radio" name="connected" id="conn_y" value="Y" class="yn-y">
-            <label class="yn-label yn-label-y" for="conn_y">Y</label>
-            <input type="radio" name="connected" id="conn_n" value="N" class="yn-n">
-            <label class="yn-label yn-label-n" for="conn_n">N</label>
-          </div>
-          <label for="signal">Signal %</label>
-          <input type="number" id="signal" class="short" placeholder="100">
+      </div>
+      <div class="field-group">
+        <label>Monitor Ready</label>
+        <div class="yn-group">
+          <input type="radio" id="monitor_y" name="monitor" value="Y">
+          <label class="yn-label yn-label-y" for="monitor_y">Y</label>
+          <input type="radio" id="monitor_n" name="monitor" value="N">
+          <label class="yn-label yn-label-n" for="monitor_n">N</label>
         </div>
+      </div>
+      <div class="field-group">
+        <label>Connected</label>
+        <div class="yn-group">
+          <input type="radio" id="conn_y" name="connected" value="Y">
+          <label class="yn-label yn-label-y" for="conn_y">Y</label>
+          <input type="radio" id="conn_n" name="connected" value="N">
+          <label class="yn-label yn-label-n" for="conn_n">N</label>
+        </div>
+      </div>
+      <div class="field-group" style="display:flex; align-items:center; gap:8px;">
+  <label for="signal">Signal %</label>
+ <input type="number" id="signal" placeholder="100" style="width:40px;">
 
-        <div class="field-row">
-                </div>
-  <div class="footer">
-    <span class="footer-text">GENERATOR MAINTENANCE REPORT · CONFIDENTIAL</span>
-    <span style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-dim);">Ver 1.0B</span>
-  </div>
+</div>
 
-  <div class="page-corner-bl"></div>
-  <div class="page-corner-br"></div>
-
+    </div>  
+    
+  </div>  
+</div>
+<div class="footer">
+  <span class="footer-text">GENERATOR MAINTENANCE REPORT · CONFIDENTIAL</span>
+  <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dim);">Ver 1.0B</span>
+</div>
+<div class="page-corner-bl"></div>
+<div class="page-corner-br"></div>
 </div>
 
 <script>
