@@ -942,53 +942,44 @@ body.dark-mode::-webkit-scrollbar-thumb:hover { background: linear-gradient(180d
     </div>
 
     <!-- Other -->
-    <div class="section">
-      <div class="section-header">Other</div>
-      <div class="section-body">
-        <div class="field-row">
-          <div class="field-group">
-            <label>Surge Protection</label>
-            <div class="yn-group">
-              <input type="radio" id="surge_y" name="surge" value="Y">
-              <label class="yn-label yn-label-y" for="surge_y">Y</label>
-              <input type="radio" id="surge_n" name="surge" value="N">
-              <label class="yn-label yn-label-n" for="surge_n">N</label>
-            </div>
-          </div>
-          <div class="field-group">
-            <label>Green Light</label>
-            <div class="yn-group">
-              <input type="radio" id="green_y" name="green" value="Y">
-              <label class="yn-label yn-label-y" for="green_y">Y</label>
-              <input type="radio" id="green_n" name="green" value="N">
-              <label class="yn-label yn-label-n" for="green_n">N</label>
-            </div>
-          </div>
-          <div class="field-group">
-            <label>Monitor Ready</label>
-            <div class="yn-group">
-              <input type="radio" id="monitor_y" name="monitor" value="Y">
-              <label class="yn-label yn-label-y" for="monitor_y">Y</label>
-              <input type="radio" id="monitor_n" name="monitor" value="N">
-              <label class="yn-label yn-label-n" for="monitor_n">N</label>
-            </div>
-          </div>
-          <div class="field-group">
-            <label>Connected</label>
-            <div class="yn-group">
-              <input type="radio" id="conn_y" name="connected" value="Y">
-              <label class="yn-label yn-label-y" for="conn_y">Y</label>
-              <input type="radio" id="conn_n" name="connected" value="N">
-              <label class="yn-label yn-label-n" for="conn_n">N</label>
-            </div>
-          </div>
-          <div class="field-group" style="display:flex;align-items:center;gap:8px;">
-            <label for="signal">Signal %</label>
-            <input type="number" id="signal" placeholder="100" style="width:40px;">
-          </div>
-        </div>
+<div class="section">
+  <div class="section-header">Other</div>
+  <div class="section-body">
+    <div class="field-row">
+      <label>Surge Protection</label>
+      <div class="yn-group">
+        <input type="radio" id="surge_y" name="surge" value="Y" class="yn-y">
+        <label class="yn-label yn-label-y" for="surge_y">Y</label>
+        <input type="radio" id="surge_n" name="surge" value="N" class="yn-n">
+        <label class="yn-label yn-label-n" for="surge_n">N</label>
       </div>
+      <label>Green Light</label>
+      <div class="yn-group">
+        <input type="radio" id="green_y" name="green" value="Y" class="yn-y">
+        <label class="yn-label yn-label-y" for="green_y">Y</label>
+        <input type="radio" id="green_n" name="green" value="N" class="yn-n">
+        <label class="yn-label yn-label-n" for="green_n">N</label>
+      </div>
+      <label>Monitor Ready</label>
+      <div class="yn-group">
+        <input type="radio" id="monitor_y" name="monitor" value="Y" class="yn-y">
+        <label class="yn-label yn-label-y" for="monitor_y">Y</label>
+        <input type="radio" id="monitor_n" name="monitor" value="N" class="yn-n">
+        <label class="yn-label yn-label-n" for="monitor_n">N</label>
+      </div>
+      <label>Connected</label>
+      <div class="yn-group">
+        <input type="radio" id="conn_y" name="connected" value="Y" class="yn-y">
+        <label class="yn-label yn-label-y" for="conn_y">Y</label>
+        <input type="radio" id="conn_n" name="connected" value="N" class="yn-n">
+        <label class="yn-label yn-label-n" for="conn_n">N</label>
+      </div>
+      <label for="signal">Signal %</label>
+      <input type="number" id="signal" placeholder="100" style="width:40px;">
     </div>
+  </div>
+</div>
+
 
   </div><!-- /.content -->
 
