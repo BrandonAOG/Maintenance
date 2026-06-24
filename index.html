@@ -1108,12 +1108,12 @@ body.dark-mode::-webkit-scrollbar-thumb:hover { background: linear-gradient(180d
   body.mobile-safari label { font-size: calc(0.66rem + 0.3px) !important; }
   /* Trim vertical spacing on mobile so everything + footer fits one page */
   body.mobile-safari .section { margin-bottom: 0 !important; }
-  /* Even vertical spacing: 6mm total spread across the 5 section boundaries
-     from Battery down to the top of Transfer Switch (1.2mm ≈ 4.5px each). */
-  body.mobile-safari .vspace-print { margin-top: 4.5px !important; }
   body.mobile-safari .two-column { margin-bottom: 0 !important; gap: 2px !important; }
   body.mobile-safari .two-column + .section { margin-top: 0 !important; }
   body.mobile-safari .field-row { margin-bottom: 2.5px !important; }
+  /* +6mm total spread evenly across the 18 rows from Battery to the top of
+     Transfer Switch: each in-range row gets ~1.25px extra (3.75px total). */
+  body.mobile-safari .vrows-print .field-row { margin-bottom: 3.75px !important; }
   body.mobile-safari .section-body { padding: 1.5px 6px !important; }
   body.mobile-safari .leak-loc .check-group { flex-wrap: nowrap !important; white-space: nowrap !important; gap: 3px !important; }
   body.mobile-safari #gas-top-row, body.mobile-safari #oil-top-row { gap: 16px !important; }
@@ -1397,7 +1397,7 @@ body.dark-mode .action-bar {
 
     <!-- Battery & Generator -->
     <div class="two-column">
-      <div class="section">
+      <div class="section vrows-print">
         <div class="section-header">Battery</div>
         <div class="section-body">
           <div class="field-row">
@@ -1452,7 +1452,7 @@ body.dark-mode .action-bar {
         </div>
       </div>
 
-      <div class="section vspace-print">
+      <div class="section vrows-print">
         <div class="section-header">Generator</div>
         <div class="section-body">
           <div class="field-row">
@@ -1523,7 +1523,7 @@ body.dark-mode .action-bar {
     </div>
 
     <!-- Oil & Filters -->
-    <div class="section vspace-print">
+    <div class="section vrows-print">
       <div class="section-header">Oil & Filters</div>
       <div class="section-body">
         <div class="field-row" id="oil-top-row" style="justify-content:flex-start;gap:36px;flex-wrap:wrap;">
@@ -1553,7 +1553,7 @@ body.dark-mode .action-bar {
     </div>
 
     <!-- Simulated Outage Test -->
-    <div class="section vspace-print" id="sim-section">
+    <div class="section vrows-print" id="sim-section">
       <div class="section-header section-header-toggle" id="sim-header" role="button" tabindex="0" title="Tap to switch view">
         <span id="sim-header-text">Simulated Power Test</span>
         <span class="section-toggle-hint" aria-hidden="true">tap</span>
@@ -1626,7 +1626,7 @@ body.dark-mode .action-bar {
     </div>
 
     <!-- Gas System -->
-    <div class="section vspace-print">
+    <div class="section vrows-print">
       <div class="section-header">Gas System</div>
       <div class="section-body">
         <div class="field-row" id="gas-top-row" style="justify-content:flex-start;gap:36px;flex-wrap:wrap;">
@@ -1682,7 +1682,7 @@ body.dark-mode .action-bar {
     </div>
 
     <!-- Transfer Switch -->
-    <div class="section vspace-print">
+    <div class="section">
       <div class="section-header">Transfer Switch</div>
       <div class="section-body">
         <div class="field-row ts-row" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
@@ -1987,9 +1987,6 @@ function openPrintPreview() {
     // .section — spacing
     document.querySelectorAll('.section').forEach(function(el) {
       _snap(el, 'marginBottom', '0');
-      if (el.classList.contains('vspace-print')) {
-        _snap(el, 'marginTop', '4.5px');
-      }
       _snap(el, 'background',  'white');
       _snap(el, 'boxShadow',   'none');
       _snap(el, 'display',     'block');
@@ -2026,7 +2023,7 @@ function openPrintPreview() {
     // .field-row
     document.querySelectorAll('.field-row').forEach(function(el) {
       _snap(el, 'display',       'flex');
-      _snap(el, 'marginBottom',  '2.5px');
+      _snap(el, 'marginBottom',  (el.closest && el.closest('.vrows-print')) ? '3.75px' : '2.5px');
       _snap(el, 'gap',           '3px');
     });
 
