@@ -2391,8 +2391,11 @@ function openPrintPreview() {
 
     // Devices that should hold the light/print layout until the user dismisses
     // the print sheet AND touches the screen (prevents dark mode flashing back
-    // under the still-open preview). iPhone Safari and iPad both qualify.
-    var _deferRestore = (isMobileSafari || isIPad) && wasDark;
+    // under the still-open preview AND prevents any un-stamp reflow / rescale of
+    // the locked layout while the preview is live). iPhone Safari and iPad both
+    // qualify, in BOTH light and dark mode — the layout stays frozen until a real
+    // tap or the 60s fallback, so the preview can never reflow underneath it.
+    var _deferRestore = (isMobileSafari || isIPad);
 
     // ── Restore strategy ──
     var _restored = false;
@@ -2448,7 +2451,7 @@ function openPrintPreview() {
     // restore start with no pre-print timer (the deferred path arms its own).
     var _safety = _deferRestore
       ? null
-      : setTimeout(function() { _tryRestore(0); }, 30000);
+      : setTimeout(function() { _tryRestore(0); }, 60000);
 
   } else {
     // Desktop print
