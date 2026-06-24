@@ -1133,6 +1133,7 @@ body.dark-mode::-webkit-scrollbar-thumb:hover { background: linear-gradient(180d
      Transfer Switch: each in-range row gets ~1.25px extra (3.75px total). */
   body.mobile-safari .vrows-print .field-row { margin-bottom: 3.75px !important; }
   body.mobile-safari .section-body { padding: 1.5px 6px !important; }
+  body.mobile-safari #gas-section .section-body, body.mobile-safari #ts-section .section-body { padding-bottom: 0.75px !important; }
   body.mobile-safari .leak-loc .check-group { flex-wrap: nowrap !important; white-space: nowrap !important; gap: 3px !important; }
   body.mobile-safari #gas-top-row, body.mobile-safari #oil-top-row { gap: 16px !important; }
   /* Transfer Switch: prevent Condition group from wrapping to a second line */
@@ -1171,6 +1172,7 @@ body.dark-mode::-webkit-scrollbar-thumb:hover { background: linear-gradient(180d
   body.mobile-chrome .two-column + .section { margin-top: 0 !important; }
   body.mobile-chrome .field-row { margin-bottom: 0.5px !important; }
   body.mobile-chrome .section-body { padding: 1px 6px !important; }
+  body.mobile-chrome #gas-section .section-body, body.mobile-chrome #ts-section .section-body { padding-bottom: 0.5px !important; }
   body.mobile-chrome .footer { margin-top: 4px !important; margin-bottom: 0 !important; padding-bottom: 1px !important; }
 }
 @media print and (min-width: 768px) {
@@ -1230,6 +1232,7 @@ body.dark-mode::-webkit-scrollbar-thumb:hover { background: linear-gradient(180d
   html.ipad .field-row { margin-bottom: 0.5px !important; }
   html.ipad .section-header { padding: 2px 7px !important; }
   html.ipad .section-body { padding: 1px 6px !important; }
+  html.ipad #gas-section .section-body, html.ipad #ts-section .section-body { padding-bottom: 0.5px !important; }
 
   /* Keep tight groups on one line, like the iPhone build */
   html.ipad .leak-loc .check-group { flex-wrap: nowrap !important; white-space: nowrap !important; gap: 3px !important; }
@@ -1660,7 +1663,7 @@ body.dark-mode .action-bar {
     </div>
 
     <!-- Gas System -->
-    <div class="section vrows-print">
+    <div class="section vrows-print" id="gas-section">
       <div class="section-header">Gas System</div>
       <div class="section-body">
         <div class="field-row" id="gas-top-row" style="justify-content:flex-start;gap:36px;flex-wrap:wrap;">
@@ -1716,7 +1719,7 @@ body.dark-mode .action-bar {
     </div>
 
     <!-- Transfer Switch -->
-    <div class="section">
+    <div class="section" id="ts-section">
       <div class="section-header">Transfer Switch</div>
       <div class="section-body">
         <div class="field-row ts-row" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
