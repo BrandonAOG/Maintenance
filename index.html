@@ -1102,8 +1102,8 @@ body.dark-mode::-webkit-scrollbar-thumb:hover { background: linear-gradient(180d
   /* Mobile prints the 820px layout scaled down to fit, shrinking controls.
      Bump them back up so they read the same size as desktop print. */
   body.mobile-safari .check-item input[type="checkbox"], body.mobile-safari .check-item input[type="radio"] { width: 12px !important; height: 12px !important; min-width: 12px !important; min-height: 12px !important; }
-  body.mobile-safari .yn-group { height: 19px !important; }
-  body.mobile-safari .yn-group .yn-label { min-height: 19px !important; font-size: calc(0.72rem - 0.7px) !important; padding: 0 7px !important; }
+  body.mobile-safari .yn-group { height: 19px !important; align-items: center !important; box-sizing: border-box !important; }
+  body.mobile-safari .yn-group .yn-label { height: 17px !important; min-height: 0 !important; max-height: 17px !important; font-size: calc(0.72rem - 0.7px) !important; padding: 0 7px !important; }
   body.mobile-safari .check-item span, body.mobile-safari .opt span { font-size: calc(0.66rem + 0.3px) !important; }
   body.mobile-safari label { font-size: calc(0.66rem + 0.3px) !important; }
   /* Trim vertical spacing on mobile so everything + footer fits one page */
@@ -2111,11 +2111,13 @@ function openPrintPreview() {
       _snap(el, 'background', 'white');
       _snap(el, 'border',     '0.5px solid #D97706');
       _snap(el, 'display',    'inline-flex');
+      _snap(el, 'alignItems', 'center');
+      _snap(el, 'boxSizing',  'border-box');
     });
     document.querySelectorAll('.yn-group .yn-label').forEach(function(el) {
-      _snap(el, 'height',    '19px');
+      _snap(el, 'height',    '17px');
       _snap(el, 'minHeight', '0');
-      _snap(el, 'maxHeight', '19px');
+      _snap(el, 'maxHeight', '17px');
       _snap(el, 'lineHeight','1');
       _snap(el, 'fontSize',  'calc(0.72rem - 0.7px)');
       _snap(el, 'padding',   '0 7px');
