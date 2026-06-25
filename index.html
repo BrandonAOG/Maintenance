@@ -822,7 +822,7 @@ body.dark-mode::-webkit-scrollbar-thumb:hover { background: linear-gradient(180d
    PRINT STYLES
    ══════════════════════════════════════════════════════════════ */
 @media print {
-  @page { size: 8.5in 11in; margin: 0.15in 0.15in 0.06in 0.15in !important; }
+  @page { size: 8.5in 11in; margin: 0.15in 0.1in 0.06in 0.1in !important; }
 
   .leak-loc .check-group { flex-wrap: nowrap !important; white-space: nowrap !important; gap: 4px !important; }
 
@@ -1202,7 +1202,7 @@ body.dark-mode::-webkit-scrollbar-thumb:hover { background: linear-gradient(180d
        1     = no shrink (footer spills)
        0.97  = shrink 3% (starting point)
        lower = shrink more. Nudge by 0.01 until the footer just fits.        */
-  html.ipad          { font-size: 18px !important; --form-side-pad: 5px; --form-scale: 1; }
+  html.ipad          { font-size: 18.3px !important; --form-side-pad: 8px; --form-scale: 1; }
   html.ipad-chrome   { --form-scale: 0.97; }   /* Chrome on iPad    */
   html.mobile-chrome { --form-scale: 0.97; }   /* Chrome on Android */
   html.ipad .content,
@@ -1255,6 +1255,21 @@ body.dark-mode::-webkit-scrollbar-thumb:hover { background: linear-gradient(180d
   html.ipad .ts-row > div { flex-shrink: 1 !important; min-width: 0 !important; }
   html.ipad .ts-row .check-group { flex-wrap: nowrap !important; gap: 2px !important; }
   html.ipad .ts-row input[id^="tsserial"] { width: 110px !important; min-width: 0 !important; flex-shrink: 0 !important; }
+}
+
+/* ── Side-margin scope: @page side margin is now 0.1in for everyone (it can't
+   be browser-conditional). Chrome (ipad-chrome / mobile-chrome) keeps the new
+   0.1in. Every NON-Chrome path pulls its frame back inward 0.05in/side so it
+   stays at the original 0.15in — content width is unchanged for them. ── */
+@media print {
+  html.ipad:not(.ipad-chrome) .page,
+  html.macos .page,
+  html.windows .page,
+  body.mobile-safari:not(.mobile-chrome) .page {
+    width: calc(100% - 0.1in) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 }
 
 /* ── Screen only, all devices: make all option chips (checkbox + radio) match
