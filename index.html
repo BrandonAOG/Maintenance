@@ -3187,5 +3187,29 @@ setTimeout(adjustTopPadding, 500);
 if (document.fonts && document.fonts.ready) { document.fonts.ready.then(adjustTopPadding); }
 </script>
 
+<!-- ===== DEV DIAGNOSTIC BADGE (screen only, never prints) — delete this block when done ===== -->
+<style>
+  #dev-badge{position:fixed;left:6px;bottom:6px;z-index:2147483647;
+    background:#111;color:#0f0;font:11px/1.45 monospace;padding:7px 9px;
+    border-radius:6px;max-width:92vw;white-space:pre-wrap;opacity:.92;}
+  @media print{#dev-badge{display:none !important;}}
+</style>
+<div id="dev-badge" onclick="this.remove()">loading…</div>
+<script>
+(function(){
+  var b=document.getElementById('dev-badge'); if(!b) return;
+  function show(){
+    var ua=navigator.userAgent;
+    b.textContent =
+      'html classes: ' + (document.documentElement.className || '(none)') + '\n' +
+      'CriOS in UA : ' + (/CriOS/.test(ua) ? 'YES' : 'no') +
+      '    maxTouch: ' + (navigator.maxTouchPoints || 0) + '\n' +
+      'platform    : ' + (navigator.platform || '?') + '\n' +
+      '(tap to hide)';
+  }
+  show(); setTimeout(show, 300); setTimeout(show, 800);
+})();
+</script>
+
 </body>
 </html>
