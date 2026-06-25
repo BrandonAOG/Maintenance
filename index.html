@@ -1195,16 +1195,18 @@ body.dark-mode::-webkit-scrollbar-thumb:hover { background: linear-gradient(180d
      SMALLER value  = wider content = rows wrap less = SHORTER = pulls to 1 page
      LARGER  value  = narrower content = more wrapping = TALLER = spills to 2 pages
      Change just this number; both sides stay even automatically.        */
-  /* ── Footer-fit for iPad PDF ──
-     Safari-on-iPad already fits → no shrink (scale 1, untouched).
-     Chrome-on-iPad prints a touch taller and spills the footer, so ONLY it
-     gets shrunk a few %. Tune the Chrome number below:
+  /* ── Footer-fit shrink for Chrome's print pipeline (iPad + Android) ──
+     Chrome prints a touch taller than Safari/Firefox and spills the footer,
+     so ONLY Chrome paths get shrunk. Safari-iPad and everything else stay at 1.
+     Tune each number independently:
        1     = no shrink (footer spills)
        0.97  = shrink 3% (starting point)
        lower = shrink more. Nudge by 0.01 until the footer just fits.        */
-  html.ipad        { font-size: 18.3px !important; --form-side-pad: 8px; --form-scale: 1; }
-  html.ipad-chrome { --form-scale: 0.97; }
-  html.ipad .content { zoom: var(--form-scale, 1) !important; }
+  html.ipad          { font-size: 18.3px !important; --form-side-pad: 8px; --form-scale: 1; }
+  html.ipad-chrome   { --form-scale: 0.97; }   /* Chrome on iPad    */
+  html.mobile-chrome { --form-scale: 0.97; }   /* Chrome on Android */
+  html.ipad .content,
+  body.mobile-chrome .content { zoom: var(--form-scale, 1) !important; }
   html.ipad, html.ipad body { width: auto !important; max-width: 100% !important; display: block !important; height: auto !important; min-height: 0 !important; overflow: visible !important; }
 
   html.ipad .page {
