@@ -1820,7 +1820,7 @@ body.dark-mode .action-bar {
 
   <div class="footer">
     <span class="footer-text">GENERATOR MAINTENANCE REPORT · CONFIDENTIAL</span>
-    <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text-dim);">Ver 1.0B</span>
+    <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text-dim);">Ver 1.0C</span>
   </div>
   <div class="page-corner-bl"></div>
   <div class="page-corner-br"></div>
@@ -3153,6 +3153,78 @@ document.addEventListener('DOMContentLoaded', adjustTopPadding);
 setTimeout(adjustTopPadding, 100);
 setTimeout(adjustTopPadding, 500);
 if (document.fonts && document.fonts.ready) { document.fonts.ready.then(adjustTopPadding); }
+</script>
+
+<!-- ============================================================= -->
+<!--  MM PRINT RULER  (iPad PDF only) — delete this block to remove -->
+<!--  0 mm = inner top edge of the page border.                    -->
+<!-- ============================================================= -->
+<style>
+  #mm-ruler { display: none; }
+  @media print {
+    html.ipad #mm-ruler {
+      display: block !important;
+      position: absolute !important;
+      top: 0; left: 0;
+      width: 8mm; height: 100%;
+      z-index: 99999;
+      pointer-events: none;
+      border-right: 0.25mm solid #0066ff !important;
+      background-color: transparent !important;
+      background-image:
+        repeating-linear-gradient(to bottom,#0066ff 0,#0066ff 0.15mm,transparent 0.15mm,transparent 1mm),
+        repeating-linear-gradient(to bottom,#0066ff 0,#0066ff 0.22mm,transparent 0.22mm,transparent 5mm),
+        repeating-linear-gradient(to bottom,#0066ff 0,#0066ff 0.30mm,transparent 0.30mm,transparent 10mm) !important;
+      background-position: right top, right top, right top !important;
+      background-size: 2mm 100%, 3.8mm 100%, 6.5mm 100% !important;
+      background-repeat: no-repeat, no-repeat, no-repeat !important;
+    }
+    html.ipad #mm-ruler .lbl {
+      position: absolute !important;
+      left: 0.4mm;
+      transform: translateY(-50%);
+      font: 700 2.1mm/1 Arial, sans-serif !important;
+      color: #0066ff !important;
+      -webkit-text-fill-color: #0066ff !important;
+      background: transparent !important;
+    }
+    html.ipad #mm-ruler .pbreak {
+      position: absolute !important;
+      left: 0; width: 210mm; height: 0;
+      border-top: 0.3mm dashed #e00000 !important;
+    }
+    html.ipad #mm-ruler .pbreak span {
+      position: absolute; left: 9mm; top: 0.4mm;
+      font: 700 2.2mm/1 Arial, sans-serif; color: #e00000 !important;
+      -webkit-text-fill-color:#e00000 !important; white-space: nowrap;
+    }
+  }
+</style>
+<div id="mm-ruler"></div>
+<script>
+(function () {
+  var page  = document.getElementById('page');
+  var ruler = document.getElementById('mm-ruler');
+  if (!page || !ruler) return;
+  page.appendChild(ruler);
+  for (var mm = 0; mm <= 580; mm += 10) {
+    var l = document.createElement('div');
+    l.className = 'lbl';
+    l.style.top = mm + 'mm';
+    l.textContent = mm;
+    ruler.appendChild(l);
+  }
+  var PAGE1 = 274; // approx printable mm per page; adjust after you calibrate
+  [PAGE1, PAGE1 * 2].forEach(function (y, i) {
+    var b = document.createElement('div');
+    b.className = 'pbreak';
+    b.style.top = y + 'mm';
+    var s = document.createElement('span');
+    s.textContent = '\u2248 end of page ' + (i + 1);
+    b.appendChild(s);
+    ruler.appendChild(b);
+  });
+})();
 </script>
 
 </body>
