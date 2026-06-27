@@ -2163,17 +2163,17 @@ function openPrintPreview() {
     var _DAMP_IPAD  = 0.0;   // testing: try same as iPhone — iPad may self-compensate too
     var _damp = _ipadPath ? _DAMP_IPAD : _DAMP_PHONE;
     var _effZoom = 1 + (_zoom - 1) * _damp;
-    // ── Font: fixed at each path's baseline (no longer slider-driven). ─────
+    // ── Font: slider-driven. Border stays put because width is locked below. ─
     var _fsBase = _ipadPath ? 18.3 : (isMobileSafari ? 18.5 : 18);
-    var _stampFS = _fsBase;
+    var _stampFS = (typeof window.__printFS === 'number' && window.__printFS > 0)
+                   ? window.__printFS : _fsBase;
 
-    // ── Width: zoom-corrected base × the slider's width multiplier. ────────
-    // The FONT slider now nudges the sheet border: 0 = base, ±1% per unit.
-    var _wMult = (typeof window.__printWidthMult === 'number' && window.__printWidthMult > 0)
-                 ? window.__printWidthMult : 1;
-    var _corrW = Math.round(_baseW * _effZoom * _wMult);
+    // ── Width: HARD-LOCKED at the zoom-corrected base. ─────────────────────
+    // Independent of the slider, so the page border never moves off the corner
+    // brackets — only the text inside scales when the slider changes the font.
+    var _corrW = Math.round(_baseW * _effZoom);
     var _printW = _corrW + 'px';
-    var _widthGrow = _wMult; // for the diagnostic readout below
+    var _widthGrow = 1; // diagnostic only
     // NOTE: must be !important. A stylesheet `html.mobile-safari{font-size:..!important}`
     // rule (in @media print) otherwise beats a plain inline style and pins the size.
     _snapshots.push({ el: html, prop: 'fontSize', was: html.style.fontSize,
@@ -3673,13 +3673,13 @@ if (document.fonts && document.fonts.ready) { document.fonts.ready.then(adjustTo
   border-radius:10px; padding:10px 12px; box-shadow:0 4px 16px rgba(0,0,0,.4);
   display:none; user-select:none; -webkit-user-select:none; width:172px;">
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-    <span style="color:#D35E13;">WIDTH</span>
+    <span style="color:#D35E13;">FONT</span>
     <span id="st-val" style="font-size:15px;">0</span>
   </div>
   <input id="st-range" type="range" min="-50" max="50" step="1" value="0"
     style="width:100%; accent-color:#D35E13; margin:0;">
   <div style="display:flex; justify-content:space-between; font-size:9px; color:#888; margin-top:2px;">
-    <span>-50</span><span id="st-px">width ×1.00</span><span>+50</span>
+    <span>-50</span><span id="st-px">font 18.5px</span><span>+50</span>
   </div>
   <div style="display:flex; gap:6px; margin-top:8px;">
     <button id="st-reset" style="flex:1; font:600 11px sans-serif; background:#333; color:#fff; border:1px solid #555; border-radius:6px; padding:5px 0;">Reset</button>
@@ -3774,15 +3774,17 @@ if (document.fonts && document.fonts.ready) { document.fonts.ready.then(adjustTo
   var _bc = document.body.className || '';
   var _isIpadCls = _bc.indexOf('ipad') > -1;
   var isMS = _bc.indexOf('mobile-safari') > -1;
-  // Slider now nudges the PRINT WIDTH (the sheet border), not the font.
-  // 0 = base width, each unit = 1% wider/narrower. Font stays at its baseline.
-  window.__printWidthMult = 1;
+  // Slider drives the PRINT FONT. Width is locked in the print code, so the
+  // page border holds its position at the corner brackets while text scales.
+  var PRINT_BASE = _isIpadCls ? 18.3 : (isMS ? 18.5 : 18);
+  window.__printFS = PRINT_BASE;
 
   function apply(n){
     var mult = 1 + (n / 100);
-    window.__printWidthMult = mult;     // <-- carried into the PDF width stamp
+    var px = PRINT_BASE * mult;
+    window.__printFS = px;
     valEl.textContent = (n > 0 ? '+' : '') + n;
-    pxEl.textContent = 'width ×' + mult.toFixed(2) + ' (' + Math.round(820*mult) + 'px)';
+    pxEl.textContent = 'font ' + px.toFixed(1) + 'px';
   }
   range.addEventListener('input', function(){ apply(+range.value); });
   document.getElementById('st-reset').addEventListener('click', function(){
