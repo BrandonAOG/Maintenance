@@ -2173,15 +2173,17 @@ function openPrintPreview() {
                         : _fsBase;
     var _stampFS = _phonePrintFS;
 
-    // ── Width: base × zoom-correction, then widened if font is above base ──
-    // When the slider pushes the font ABOVE its baseline, scale the sheet width
-    // up by the same ratio so the bigger text still fits without overflowing —
-    // the further past base you go, the wider the page. Below base, width stays
-    // at the zoom-corrected base (smaller font just leaves more whitespace).
-    var _fontRatio = (_fsBase > 0) ? (_stampFS / _fsBase) : 1;
-    var _widthGrow = (_fontRatio > 1) ? _fontRatio : 1;   // only grow, never shrink
-    var _corrW = Math.round(_baseW * _effZoom * _widthGrow);
+    // ── Width: locked to the zoom-corrected base. ──────────────────────────
+    // NOTE: width must NOT grow with the font. iOS only ever scales a print
+    // sheet DOWN to fit the page width, never up — so a wider sheet gets
+    // clamped at the page's left edge and the right side is cropped off (and
+    // the down-scaling also shrinks the font back, cancelling the increase).
+    // Keeping width fixed lets a larger font simply REFLOW within the same
+    // printable width (text wraps, using more vertical space) instead of
+    // overflowing horizontally.
+    var _corrW = Math.round(_baseW * _effZoom);
     var _printW = _corrW + 'px';
+    var _widthGrow = 1; // retained for the diagnostic readout below
     // NOTE: must be !important. A stylesheet `html.mobile-safari{font-size:..!important}`
     // rule (in @media print) otherwise beats a plain inline style and pins the size.
     _snapshots.push({ el: html, prop: 'fontSize', was: html.style.fontSize,
