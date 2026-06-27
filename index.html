@@ -2163,17 +2163,24 @@ function openPrintPreview() {
     var _DAMP_IPAD  = 0.0;   // testing: try same as iPhone — iPad may self-compensate too
     var _damp = _ipadPath ? _DAMP_IPAD : _DAMP_PHONE;
     var _effZoom = 1 + (_zoom - 1) * _damp;
-    // ── Font: slider-driven. Border stays put because width is locked below. ─
+    // ── Font: fixed at baseline (slider now drives page scale instead). ─────
     var _fsBase = _ipadPath ? 18.3 : (isMobileSafari ? 18.5 : 18);
-    var _stampFS = (typeof window.__printFS === 'number' && window.__printFS > 0)
-                   ? window.__printFS : _fsBase;
+    var _stampFS = _fsBase;
 
     // ── Width: HARD-LOCKED at the zoom-corrected base. ─────────────────────
-    // Independent of the slider, so the page border never moves off the corner
-    // brackets — only the text inside scales when the slider changes the font.
     var _corrW = Math.round(_baseW * _effZoom);
     var _printW = _corrW + 'px';
     var _widthGrow = 1; // diagnostic only
+
+    // ── Page scale: slider-driven uniform transform on .page ───────────────
+    // Scales border + brackets + text together (no reflow, no caving).
+    // Anchored top-center so growth is symmetric left/right (not lopsided).
+    var _pScale = (typeof window.__printScale === 'number' && window.__printScale > 0)
+                  ? window.__printScale : 1;
+    if (page && _pScale !== 1) {
+      _snap(page, 'transformOrigin', 'top center');
+      _snap(page, 'transform', 'scale(' + _pScale + ')');
+    }
     // NOTE: must be !important. A stylesheet `html.mobile-safari{font-size:..!important}`
     // rule (in @media print) otherwise beats a plain inline style and pins the size.
     _snapshots.push({ el: html, prop: 'fontSize', was: html.style.fontSize,
@@ -2183,12 +2190,12 @@ function openPrintPreview() {
     // on-screen whether the slider value is reaching print.
     try {
       var _diag = document.getElementById('st-px');
-      if (_diag) _diag.textContent = 'STAMPED ' + (+_stampFS).toFixed(1) + 'px';
+      if (_diag) _diag.textContent = 'scale ×' + _pScale.toFixed(2);
       var _eff = getComputedStyle(html).fontSize;
       var _diag2 = document.getElementById('st-val');
       if (_diag2) _diag2.textContent = 'zoom ' + _zoom.toFixed(2) + 'x';
       var _devEl = document.getElementById('st-dev');
-      if (_devEl) _devEl.innerHTML += '<br>→ width <b>' + _corrW + 'px</b> | font ' + _stampFS.toFixed(1) + 'px (×' + _widthGrow.toFixed(2) + ' grow) | meas ' + Math.round(_zoom*100) + '% eff ' + Math.round(_effZoom*100) + '% damp ' + _damp +
+      if (_devEl) _devEl.innerHTML += '<br>→ width <b>' + _corrW + 'px</b> | scale <b>×' + _pScale.toFixed(2) + '</b> | meas ' + Math.round(_zoom*100) + '% eff ' + Math.round(_effZoom*100) + '% damp ' + _damp +
         '<br>raw: screen=' + (Math.min(screen.width||0,screen.height||0)) +
         ' vv=' + ((window.visualViewport&&window.visualViewport.width)?Math.round(window.visualViewport.width):'?') +
         ' inner=' + window.innerWidth +
@@ -3673,13 +3680,13 @@ if (document.fonts && document.fonts.ready) { document.fonts.ready.then(adjustTo
   border-radius:10px; padding:10px 12px; box-shadow:0 4px 16px rgba(0,0,0,.4);
   display:none; user-select:none; -webkit-user-select:none; width:172px;">
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-    <span style="color:#D35E13;">FONT</span>
+    <span style="color:#D35E13;">SCALE</span>
     <span id="st-val" style="font-size:15px;">0</span>
   </div>
   <input id="st-range" type="range" min="-50" max="50" step="1" value="0"
     style="width:100%; accent-color:#D35E13; margin:0;">
   <div style="display:flex; justify-content:space-between; font-size:9px; color:#888; margin-top:2px;">
-    <span>-50</span><span id="st-px">font 18.5px</span><span>+50</span>
+    <span>-50</span><span id="st-px">scale ×1.00</span><span>+50</span>
   </div>
   <div style="display:flex; gap:6px; margin-top:8px;">
     <button id="st-reset" style="flex:1; font:600 11px sans-serif; background:#333; color:#fff; border:1px solid #555; border-radius:6px; padding:5px 0;">Reset</button>
@@ -3776,15 +3783,16 @@ if (document.fonts && document.fonts.ready) { document.fonts.ready.then(adjustTo
   var isMS = _bc.indexOf('mobile-safari') > -1;
   // Slider drives the PRINT FONT. Width is locked in the print code, so the
   // page border holds its position at the corner brackets while text scales.
-  var PRINT_BASE = _isIpadCls ? 18.3 : (isMS ? 18.5 : 18);
-  window.__printFS = PRINT_BASE;
+  // Slider drives a uniform TRANSFORM SCALE on the whole .page (border,
+  // brackets, text all scale together — nothing reflows, nothing caves).
+  // 0 = scale 1.0, each unit = 1%. Font reverts to its fixed baseline.
+  window.__printScale = 1;
 
   function apply(n){
-    var mult = 1 + (n / 100);
-    var px = PRINT_BASE * mult;
-    window.__printFS = px;
+    var s = 1 + (n / 100);
+    window.__printScale = s;
     valEl.textContent = (n > 0 ? '+' : '') + n;
-    pxEl.textContent = 'font ' + px.toFixed(1) + 'px';
+    pxEl.textContent = 'scale ×' + s.toFixed(2);
   }
   range.addEventListener('input', function(){ apply(+range.value); });
   document.getElementById('st-reset').addEventListener('click', function(){
